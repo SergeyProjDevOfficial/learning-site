@@ -1,0 +1,61 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    Layout = "masterPages.cshtml";
+
+    string TitleToUrl(string title)
+    {
+        title = title.Replace(' ', '-');
+        title = title.ToLower();
+        return title;
+    }
+}
+
+
+<!-- Override PageTitle to ArticleTitle -->
+<script>
+    document.title = "@Model.Value("articlesTitle")";
+</script>
+
+
+<section id="mu-hero">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</section>
+
+<section class="blog_area single-post-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 posts-list">
+                <div class="single-post">
+
+                    @{
+                        var url = Request.RawUrl; //Gets value from url
+                        url = url.Remove(url.Length - 1);
+                        var articleName = url.Split('/').Last(); //splits unnecessary characters
+
+
+
+                        var selection = Umbraco.Content(Guid.Parse("8332cee3-4529-44c0-8ca4-fb9b7ea2405f"))
+                        .ChildrenOfType("articlesItem")
+                        .Where(x => TitleToUrl(x.Name) == articleName)
+                        .OrderBy(x => x.Name).SingleOrDefault();
+                    }
+
+                    <div class="feature-img">
+                        @{ var bgImage = selection.Value<IPublishedContent>("articleIcon");}
+                        <img class="img-fluid" style="width: 100%" src="@bgImage.Url" alt="">
+                    </div>
+
+                    <div class="blog_details">
+                        <h2>@selection.Value("articlesTitle")</h2>
+                        @selection.Value("articlesContent")
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

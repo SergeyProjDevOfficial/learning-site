@@ -1,0 +1,23 @@
+﻿@model learning_site.Models.ViewModels.PagingModel
+    
+@if (Model.TotalPages > 1)
+{
+    <nav class="blog-pagination justify-content-center d-flex">
+        <ul class="pagination">
+            @if (Model.CurrentPage > 1)
+            {
+                <li><a href="?page=@(Model.CurrentPage - 1)">Prev</a></li>
+            }
+            @for (int p = 1; p < Model.TotalPages + 1; p++)
+            {
+                <li class="@(p == Model.CurrentPage ? "active" : string.Empty) page-item" style="background-color: white">
+                    <a href="?page=@p">@p</a>
+                </li>
+            }
+            @if (Model.CurrentPage < Model.TotalPages)
+            {
+                <li><a href="?page=@(Model.CurrentPage + 1)">Next</a></li>
+            }
+        </ul>
+    </nav>
+}

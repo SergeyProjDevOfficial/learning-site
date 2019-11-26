@@ -1,0 +1,20 @@
+﻿@model learning_site.Models.ViewModels.EmailModel
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Body)
+        </div>
+
+        <input type="submit" value="Send" />
+
+    </fieldset>
+}

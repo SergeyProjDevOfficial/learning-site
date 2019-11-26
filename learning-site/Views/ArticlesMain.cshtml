@@ -1,0 +1,61 @@
+﻿@inherits UmbracoViewPage<PagingModel>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using learning_site.Models.ViewModels;
+@{
+    Layout = "masterPages.cshtml";
+}
+
+<link rel="stylesheet" href="/html-template/assets/css/css/style.css">
+
+<!-- Start Featured Slider -->
+<section id="mu-hero">
+    <div class="container" style="margin-left: 50%; margin-top: -10%">
+        <div class="row">
+
+            <!-- Text -->
+            <div class="col-md-6 col-sm-6 col-sm-pull-6" style="margin-left: 20%">
+                <div class="mu-hero-left" align="center">
+                    <section class="blog_area section-padding">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8 mb-5 mb-lg-0">
+                                    <div class="blog_left_sidebar">
+
+                                        @foreach (var item in Model.Nodes)
+                                        {
+                                            <article class="blog_item" style="background-color: white">
+                                                <div class="blog_item_img">
+                                                    @{ var bgImage = item.Value<IPublishedContent>("articleIcon");}
+                                                    <img class="card-img rounded-0" src="@bgImage.Url" alt="">
+                                                </div>
+
+                                                <div class="blog_details">
+                                                    <h4 class="d-inline-block" href="@item.Url">
+                                                        @item.Value("articlesTitle")
+                                                    </h4>
+                                                    @item.Value("articleShortDescription")
+                                                    <h4>
+                                                        <a href="@item.Url">Read More</a>
+                                                    </h4>
+                                                </div>
+                                            </article>
+                                        }
+
+                                        @{
+                                            // Pagination
+                                            Html.RenderPartial("~/Views/Partials/_Pagination.cshtml", Model);
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <!-- /Text -->
+
+        </div>
+    </div>
+</section>
+<!-- /Start Featured Slider -->

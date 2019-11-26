@@ -1,0 +1,10 @@
+Failed to build models.
+Access to the path 'C:\Users\s.rudenko\Desktop\learning-site\learning-site\bin\Umbraco.Web.PublishedModels.dll' is denied.
+
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   at System.IO.FileStream..ctor(String path, FileMode mode)
+   at Umbraco.ModelsBuilder.Building.Compiler.Compile(String assemblyName, IDictionary`2 files, String binPath) in D:\d\Zbu ModelsBuilder\src\Umbraco.ModelsBuilder\Building\Compiler.cs:line 78
+   at Umbraco.ModelsBuilder.Umbraco.ModelsBuilderBackOfficeController.GenerateModels(UmbracoServices umbracoServices, String modelsDirectory, String bin, String modelsNamespace) in D:\d\Zbu ModelsBuilder\src\Umbraco.ModelsBuilder\Umbraco\ModelsBuilderBackOfficeController.cs:line 154
+   at Umbraco.ModelsBuilder.Umbraco.ModelsBuilderBackOfficeController.BuildModels() in D:\d\Zbu ModelsBuilder\src\Umbraco.ModelsBuilder\Umbraco\ModelsBuilderBackOfficeController.cs:line 62

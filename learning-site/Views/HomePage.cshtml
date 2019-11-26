@@ -1,0 +1,302 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.HomePage>
+@using System.Web.Optimization
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    Layout = "masterPages.cshtml";
+}
+
+<!-- Start Featured Slider -->
+<section id="mu-hero">
+    <div class="container">
+        <div class="row">
+
+            <!-- Image -->
+            <div class="col-md-6 col-sm-6 col-sm-push-6">
+                <div class="mu-hero-right">
+                    @{ string productImage = GetImageByFieldName("yourProductImage");
+                        if (!string.IsNullOrEmpty(productImage))
+                        {
+                            <img hight="733" width="1000" src="@productImage" alt="Ebook img">
+                        }
+                    }
+                </div>
+            </div>
+
+            <!-- Text -->
+            <div class="col-md-6 col-sm-6 col-sm-pull-6">
+                <div class="mu-hero-left">
+
+                    @if (!string.IsNullOrEmpty(Model.YourProductTitle))
+                    {
+                        <h1>@Model.YourProductTitle</h1>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.YourProductDescription.ToString()))
+                    {
+                        <p>@Model.YourProductDescription</p>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.DownloadLink))
+                    {
+                        <a href="@Model.DownloadLink" class="mu-primary-btn">Download Now!</a>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.AdditionalInformation))
+                    {
+                        <span>@Model.AdditionalInformation</span>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- Start Featured Slider -->
+<!-- Start main content -->
+
+<main role="main">
+    <!-- Start Counter -->
+    @if (Model.HasValue("counter") && (Model.Counter.Any(item => item.CounterBoxIsVisible == true)))
+    {
+        <section id="mu-counter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mu-counter-area">
+
+                            <div class="mu-counter-block">
+                                <div class="row">
+
+                                    @{
+                                        foreach (var item in Model.Counter.Where(i => i.CounterBoxIsVisible))
+                                        {
+                                            <div style="width: 300px; float: left; margin-left: 150px; margin-bottom: 100px">
+                                                <div class="mu-single-counter">
+                                                    <img height="50" width="50" src="@item.CounterIcon.Url" />
+                                                    <div class="counter-value" data-count="@item.CounterNumber">0</div>
+                                                    <h5 class="mu-counter-name">@item.CounterName</h5>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    <!-- End Counter -->
+    <!-- Start Book Overview -->
+    @if (Model.HasValue("levels") && (Model.Levels.Any(item => item.LevelBoxIsVisible == true)))
+    {
+        <section id="mu-book-overview">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mu-book-overview-area">
+
+                            <div class="mu-heading-area">
+                                <h2 class="mu-heading-title">@Model.OverviewTitle</h2>
+                                <span class="mu-header-dot"></span>
+                                <p>@Model.OverviewDescription</p>
+                            </div>
+
+                            <!-- Start Book Overview Content -->
+                            <div class="mu-book-overview-content">
+                                <div class="row">
+
+                                    @{
+                                        foreach (var item in Model.Levels.Where(i => i.LevelBoxIsVisible))
+                                        {
+                                            <!-- Book Overview Single Content -->
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="mu-book-overview-single">
+                                                    <span class="mu-book-overview-icon-box">
+                                                        <img height="50" width="50" src="@item.LevelIcon.Url" />
+                                                    </span>
+                                                    <h4>@item.LevelTitle</h4>
+                                                    <p>@item.LevelDescription</p>
+                                                </div>
+                                            </div>
+                                            <!-- / Book Overview Single Content -->
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <!-- End Book Overview Content -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    <!-- End Book Overview -->
+    <!-- Start Video Review -->
+    @if (!string.IsNullOrEmpty(Model.VideoTitle) && !string.IsNullOrEmpty(Model.YouTubeVideoID))
+    {
+        <section id="mu-video-review">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mu-video-review-area">
+
+                            <div class="mu-heading-area">
+                                <h2 class="mu-heading-title">@Model.VideoTitle</h2>
+                                <span class="mu-header-dot"></span>
+                                <p>@Model.VideoDescription</p>
+                            </div>
+
+                            <!-- Start Video Review Content -->
+                            <div class="mu-video-review-content">
+                                @{ var youtubeURL = "https://www.youtube.com/embed/" + Model.YouTubeVideoID;}
+                                <iframe class="mu-video-iframe" width="100%" height="480" src="@youtubeURL" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            <!-- End Video Review Content -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    <!-- End Video Review -->
+    <!-- Start Author -->
+    @if (!string.IsNullOrEmpty(Model.AuthorName))
+    {
+        <section id="mu-author">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mu-author-area">
+
+                            @if (!string.IsNullOrEmpty(Model.AuthorTitle))
+                            {
+                                <div class="mu-heading-area">
+                                    <h2 class="mu-heading-title">@Model.AuthorTitle</h2>
+                                    <span class="mu-header-dot"></span>
+                                </div>
+                            }
+
+                            <!-- Start Author Content -->
+                            <div class="mu-author-content">
+                                <div class="row">
+
+                                    @{ string authorImage = GetImageByFieldName("authorImage");
+                                        <div class="col-md-6">
+                                            <div class="mu-author-image">
+                                                <img src="@authorImage">
+                                            </div>
+                                        </div>
+                                    }
+
+                                    <div class="col-md-6">
+                                        <div class="mu-author-info">
+
+                                            <h3>@Model.AuthorName</h3>
+
+                                            <p>@Model.AboutAuthor</p>
+
+                                            <div class="mu-author-social">
+
+                                                @if (!string.IsNullOrEmpty(Model.AuthorFacebookLink))
+                                                {
+                                                    <a href="@Model.AuthorFacebookLink"><i class="fa fa-facebook"></i></a>
+                                                }
+                                                @if (!string.IsNullOrEmpty(Model.AuthorTwitterLink))
+                                                {
+                                                    <a href="@Model.AuthorTwitterLink"><i class="fa fa-twitter"></i></a>
+                                                }
+                                                @if (!string.IsNullOrEmpty(Model.AuthorLinkedInLink))
+                                                {
+                                                    <a href="@Model.AuthorLinkedInLink"><i class="fa fa-linkedin"></i></a>
+                                                }
+                                                @if (!string.IsNullOrEmpty(Model.AuthorGooglePlusLink))
+                                                {
+                                                    <a href="@Model.AuthorGooglePlusLink"><i class="fa fa-google-plus"></i></a>
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Author Content -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    <!-- End Author -->
+    <!-- Start Testimonials -->
+    @if (Model.HasValue("commentsContent") && (Model.CommentsContent.Any(item => item.CommentIsVisible == true)))
+    {
+        <section id="mu-testimonials">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mu-testimonials-area">
+
+                            @if (!string.IsNullOrEmpty(Model.CommentsTitle))
+                            {
+                                <div class="mu-heading-area">
+                                    <h2 class="mu-heading-title">@Model.CommentsTitle</h2>
+                                    <span class="mu-header-dot"></span>
+                                </div>
+                            }
+
+                            <div class="mu-testimonials-block">
+                                <ul class="mu-testimonial-slide" style="height: 300px">
+                                    @{
+                                        foreach (var item in Model.CommentsContent.Where(i => i.CommentIsVisible))
+                                        {
+                                            <li>
+                                                <p>"@item.CommentText"</p>
+                                                <img class="mu-rt-img" height="400" width="450" src="@item.CommentAuthorPhoto.Url" alt="img">
+                                                <h5 class="mu-rt-name"> - @item.CommentAuthorName</h5>
+                                                <span class="mu-rt-title">@item.CommentAuthorJob</span>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    <!-- End Testimonials -->
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    @Scripts.Render("~/bundles/js/scripts.js")
+    @if (Model.HasValue("counter"))
+    {
+        <script type="text/javascript" src="/html-template/assets/js/counter.js"></script>
+    }
+
+
+
+
+</main>
+
+@functions{
+    string GetImageByFieldName(string fieldName)
+    {
+        string image = string.Empty;
+        try
+        {
+            image = Model.Value<IPublishedContent>(fieldName).Url ?? "";
+        }
+        catch { }
+        return image;
+    }
+}

@@ -1,0 +1,35 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.About>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    Layout = "masterPages.cshtml";
+}
+
+<section id="mu-testimonials">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mu-testimonials-area">
+                    <div class="mu-heading-area" style="height: 100%;">
+
+                        <h2 class="mu-heading-title" style="margin-bottom: 50px">@Model.AboutUsTitle</h2>
+
+                        @{
+                            string imageURL = string.Empty;
+                            try
+                            {
+                                imageURL = Model.Value<IPublishedContent>("aboutUsImage").Url ?? "";
+                                <img src="@imageURL" height="400" width="400" style="float: left" />
+                            }
+                            catch { }
+                        }
+
+                        <h3 class="text-primary" style="width: 50%; float: left;">
+                            @Model.AboutUsDescription
+                        </h3>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

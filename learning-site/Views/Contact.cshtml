@@ -1,0 +1,80 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Contact>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    Layout = "masterPages.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="~/js/CallEmailApi.js"></script>
+
+
+<section id="mu-testimonials">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mu-testimonials-area">
+                    <div class="mu-heading-area" style="height: 100%;">
+
+                        <!-- Start Contact -->
+                        <section id="mu-contact">
+                            <div class="mu-contact-area">
+
+                                <div class="mu-heading-area">
+                                    <h3>@Model.Value("contactFormTitle")</h3>
+                                    <span class="mu-header-dot"></span>
+                                    <p>@Model.Value("contactFormDescription")</p>
+                                </div>
+
+                                <!-- Start Contact Content -->
+                                <div class="mu-contact-content">
+
+                                    <div id="form-messages"></div>
+
+                                    @*Uncomment when sending request via JS*@
+                                    @*<form id="ajax-contact" class="mu-contact-form">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Name" id="name" name="name" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" placeholder="Enter Email" id="email" name="email" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" placeholder="Message" id="message" name="message" required></textarea>
+                                            </div>
+                                            <button type="submit" class="func-send-btn mu-send-msg-btn"><span>SUBMIT</span></button>
+                                        </form>*@
+
+
+
+                                    @*Uncomment when sending request via Controller*@
+                                    @using (Html.BeginForm())
+                                    {
+                                        <div id="ajax-contact" method="post" action="Contact" class="mu-contact-form">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Name" id="name" name="name" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" placeholder="Enter Email" id="email" name="email" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" placeholder="Message" id="message" name="message" required></textarea>
+                                            </div>
+                                            <button type="submit" class="mu-send-msg-btn"><span>SUBMIT</span></button>
+                                        </div>
+                                    }
+
+
+
+                                </div>
+                                <!-- End Contact Content -->
+
+                            </div>
+                        </section>
+                        <!-- End Contact -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,99 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using System.Web.Optimization
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>@Model.Value("title")</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="/html-template/icon.png" />
+
+    @{
+        if (Model.HasValue("description")) { <meta name="description" content="@Model.Value("description")"> }
+        if (Model.HasValue("keywords")) { <meta name="keywords" content="@Model.Value("keywords")"> }
+    }
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+    @Styles.Render("~/bundles/css/styles.css")
+
+</head>
+<body>
+
+    <!-- Start Header -->
+    <header id="mu-header" class="" role="banner">
+        <div class="container">
+            <nav class="navbar navbar-default mu-navbar">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <!-- Text Logo -->
+                        <!-- <a class="navbar-brand" href="index.html"><i class="fa fa-book" aria-hidden="true"></i> Kindle</a> -->
+                        <!-- Image Logo -->
+                        <!-- <a class="navbar-brand" href="index.html"><img src="assets/images/logo.png"></a> -->
+
+
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav mu-menu navbar-right">
+                            <li><a href="/start-page">HOME</a></li>
+                            <li><a href="/articles">BLOG</a></li>
+                            <li><a href="/about-us">ABOUT US</a></li>
+                            <li><a href="/contact">CONTACT</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        </div>
+    </header>
+    <!-- End Header -->
+
+    @RenderBody()
+
+    <!-- Start footer -->
+    <footer id="mu-footer" role="contentinfo">
+        <div class="container">
+            <div class="mu-footer-area">
+                <p class="mu-copyright">&copy; Copyright <a rel="nofollow" href="/start-page">@Model.Value("title")</a>. All right reserved.</p>
+            </div>
+        </div>
+
+    </footer>
+
+    <!-- End footer -->
+    @{
+        var detailsNode = Model.Root().Siblings().FirstOrDefault(x => x.ContentType.Alias == "globals"); 
+
+    }
+    @if (detailsNode.HasValue("jsUserFields"))
+    {
+        foreach (var item in detailsNode.Value<IEnumerable<dynamic>>("jsUserFields"))
+        {
+            if (item.JsFieldIsVisible)
+            {
+                @Html.Raw(HttpUtility.HtmlDecode(item.JsUserScript))
+            }
+        }
+    }
+
+</body>
+</html>
